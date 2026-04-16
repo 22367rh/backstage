@@ -58,6 +58,13 @@ export function createGithubCommitsCompareAction(options: {
           z.string({
             description: 'The SHA or branch name of the new commit',
           }),
+        token: z =>
+          z
+            .string({
+              description:
+                'The `GITHUB_TOKEN` to use for authorization to GitHub',
+            })
+            .optional(),
       },
       output: {
         commits: z =>
@@ -87,7 +94,7 @@ export function createGithubCommitsCompareAction(options: {
       },
     },
     async handler(ctx) {
-      const { repoUrl, oldCommit, newCommit } = ctx.input;
+      const { repoUrl, oldCommit, newCommit, token: providedToken } = ctx.input;
 
       const { host, owner, repo } = parseRepoUrl(repoUrl, integrations);
       ctx.logger.info(
@@ -104,6 +111,7 @@ export function createGithubCommitsCompareAction(options: {
         host,
         owner,
         repo,
+        token: providedToken,
       });
 
       const client = new Octokit({
@@ -159,14 +167,23 @@ export function createGithubCommitsCompareAction(options: {
                 (response.data as unknown as CompareData).commits.map(
                   commit => ({
                     sha: commit.sha,
-                    commitDate: commit.commit.author!.date ?? '',
+                    commitDate:
+                      commit.commit.author!.date ??
+                      commit.commit.committer?.date ??
+                      '',
                     commitMessage: commit.commit.message.includes('\r\n')
                       ? commit.commit.message.split('\r\n')[0]
                       : commit.commit.message.split('\n')[0],
                     pullRequestNumber:
                       commit.commit.message.match(pullRequestRegex)?.[1] ?? '',
-                    authorName: commit.commit.author!.name ?? '',
-                    authorEmail: commit.commit.author!.email ?? '',
+                    authorName:
+                      commit.commit.author!.name ??
+                      commit.commit.committer?.name ??
+                      '',
+                    authorEmail:
+                      commit.commit.author!.email ??
+                      commit.commit.committer?.email ??
+                      '',
                   }),
                 ),
             );
