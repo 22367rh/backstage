@@ -112,7 +112,7 @@ export const githubModule = createBackendModule({
           createGithubBranchProtectionAction({
             integrations,
           }),
-          createGitHubCommitsCompareAction({
+          createGithubCommitsCompareAction({
             integrations,
             githubCredentialsProvider,
           }),
