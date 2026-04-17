@@ -168,7 +168,7 @@ export function createGithubCommitsCompareAction(options: {
                   commit => ({
                     sha: commit.sha,
                     commitDate:
-                      commit.commit.author!.date ??
+                      commit.commit.author?.date ??
                       commit.commit.committer?.date ??
                       '',
                     commitMessage: commit.commit.message.includes('\r\n')
@@ -177,11 +177,11 @@ export function createGithubCommitsCompareAction(options: {
                     pullRequestNumber:
                       commit.commit.message.match(pullRequestRegex)?.[1] ?? '',
                     authorName:
-                      commit.commit.author!.name ??
+                      commit.commit.author?.name ??
                       commit.commit.committer?.name ??
                       '',
                     authorEmail:
-                      commit.commit.author!.email ??
+                      commit.commit.author?.email ??
                       commit.commit.committer?.email ??
                       '',
                   }),
