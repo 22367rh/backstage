@@ -108,10 +108,10 @@ export function createGithubCommitsCompareAction(options: {
     commits: {
       sha: string;
       commitMessage: string;
-      pullRequestNumber: string;
       commitDate: string;
       authorName: string;
       authorEmail: string;
+      pullRequestNumber?: number | undefined;
     }[];
   },
   'v2'

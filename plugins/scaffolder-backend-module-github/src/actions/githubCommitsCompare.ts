@@ -79,10 +79,12 @@ export function createGithubCommitsCompareAction(options: {
               commitMessage: z.string({
                 description: 'The first line of the commit message',
               }),
-              pullRequestNumber: z.string({
-                description:
-                  'The pull request number associated with the commit, if any',
-              }),
+              pullRequestNumber: z
+                .number({
+                  description:
+                    'The pull request number associated with the commit, if any',
+                })
+                .optional(),
               authorName: z.string({
                 description: 'The name of the commit author',
               }),
@@ -129,7 +131,7 @@ export function createGithubCommitsCompareAction(options: {
             commitDate: '2026-04-15T09:30:00Z',
             commitMessage:
               'feat: Add scaffolder dry-run comparison example (#9)',
-            pullRequestNumber: '#9',
+            pullRequestNumber: 9,
             authorName: 'Backstage User',
             authorEmail: 'user@website.example',
           },
@@ -137,7 +139,7 @@ export function createGithubCommitsCompareAction(options: {
             sha: 'c8ae2a5d6f0c5d5f3f8a6e8c0b9d7e6f5a4b3c2d',
             commitDate: '2026-04-15T10:15:00Z',
             commitMessage: 'fix: Update commit comparison output sample (#10)',
-            pullRequestNumber: '#10',
+            pullRequestNumber: 10,
             authorName: 'Backstage User',
             authorEmail: 'user@website.example',
           },
@@ -174,8 +176,13 @@ export function createGithubCommitsCompareAction(options: {
                     commitMessage: commit.commit.message.includes('\r\n')
                       ? commit.commit.message.split('\r\n')[0]
                       : commit.commit.message.split('\n')[0],
-                    pullRequestNumber:
-                      commit.commit.message.match(pullRequestRegex)?.[1] ?? '',
+                    pullRequestNumber: (() => {
+                      const prNumber =
+                        commit.commit.message.match(pullRequestRegex)?.[1];
+                      return prNumber
+                        ? parseInt(prNumber.replace('#', ''), 10)
+                        : undefined;
+                    })(),
                     authorName:
                       commit.commit.author?.name ??
                       commit.commit.committer?.name ??
