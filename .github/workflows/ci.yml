@@ -123,11 +123,11 @@ jobs:
 
       - name: Upload API Reports for Verification Testing
         if: failure() && steps.api-reports.outcome == 'failure'
-        uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # v4.1.0
+        uses: actions/upload-artifact@v7
         with:
           name: api-reports-${{ matrix.node-version }}
           path: |
-            /home/runner/work/backstage/backstage/node_modules/.cache/api-extractor/**/report.api.md
+            ${{ github.workspace }}/node_modules/.cache/api-extractor/**/report.api.md
 
       - name: verify api reference
         run: node scripts/verify-api-reference.js
