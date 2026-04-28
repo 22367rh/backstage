@@ -1579,12 +1579,27 @@ export const HeaderDefinition: {
   readonly styles: {
     readonly [key: string]: string;
   };
+  readonly bg: 'consumer';
   readonly classNames: {
-    readonly root: 'bui-Header';
+    readonly headerTop: 'bui-HeaderTop';
+    readonly stickySentinel: 'bui-HeaderStickySentinel';
     readonly content: 'bui-HeaderContent';
+    readonly headerBottom: 'bui-HeaderBottom';
     readonly breadcrumbs: 'bui-HeaderBreadcrumbs';
+    readonly breadcrumbsSmall: 'bui-HeaderBreadcrumbsSmall';
+    readonly breadcrumbLink: 'bui-HeaderBreadcrumbLink';
+    readonly breadcrumbLinkSmall: 'bui-HeaderBreadcrumbLinkSmall';
+    readonly breadcrumbSeparator: 'bui-HeaderBreadcrumbSeparator';
+    readonly titleStack: 'bui-HeaderTitleStack';
+    readonly title: 'bui-HeaderTitle';
+    readonly titleSmall: 'bui-HeaderTitleSmall';
     readonly tabsWrapper: 'bui-HeaderTabsWrapper';
     readonly controls: 'bui-HeaderControls';
+    readonly tags: 'bui-HeaderTags';
+    readonly tag: 'bui-HeaderTag';
+    readonly description: 'bui-HeaderDescription';
+    readonly metaRow: 'bui-HeaderMetaRow';
+    readonly metaItem: 'bui-HeaderMetaItem';
   };
   readonly propDefs: {
     readonly title: {};
@@ -1592,9 +1607,51 @@ export const HeaderDefinition: {
     readonly tabs: {};
     readonly activeTabId: {};
     readonly breadcrumbs: {};
+    readonly description: {};
+    readonly tags: {};
+    readonly metadata: {};
     readonly className: {};
+    readonly sticky: {};
   };
 };
+
+// @public
+export interface HeaderMetadataItem {
+  // (undocumented)
+  label: string;
+  // (undocumented)
+  value: React.ReactNode;
+}
+
+// @public
+export const HeaderMetadataStatus: (
+  input: HeaderMetadataStatusProps,
+) => JSX_2.Element;
+
+// @public
+export interface HeaderMetadataStatusProps {
+  // (undocumented)
+  color: 'danger' | 'warning' | 'success' | 'info';
+  // (undocumented)
+  href?: string;
+  // (undocumented)
+  label: string;
+}
+
+// @public
+export interface HeaderMetadataUser {
+  // (undocumented)
+  href?: string;
+  // (undocumented)
+  name: string;
+  // (undocumented)
+  src?: string;
+}
+
+// @public
+export const HeaderMetadataUsers: (input: {
+  users: HeaderMetadataUser[];
+}) => JSX_2.Element | null;
 
 // @public (undocumented)
 export const HeaderNavDefinition: {
@@ -1676,14 +1733,20 @@ export type HeaderNavTabItem = HeaderNavTab | HeaderNavTabGroup;
 export interface HeaderOwnProps {
   // (undocumented)
   activeTabId?: string | null;
-  // (undocumented)
+  // @deprecated (undocumented)
   breadcrumbs?: HeaderBreadcrumb[];
   // (undocumented)
   className?: string;
   // (undocumented)
   customActions?: React.ReactNode;
+  description?: string;
+  // (undocumented)
+  metadata?: HeaderMetadataItem[];
+  sticky?: boolean;
   // (undocumented)
   tabs?: HeaderNavTabItem[];
+  // (undocumented)
+  tags?: HeaderTag[];
   // (undocumented)
   title?: string;
 }
@@ -1699,12 +1762,27 @@ export const HeaderPageDefinition: {
   readonly styles: {
     readonly [key: string]: string;
   };
+  readonly bg: 'consumer';
   readonly classNames: {
-    readonly root: 'bui-Header';
+    readonly headerTop: 'bui-HeaderTop';
+    readonly stickySentinel: 'bui-HeaderStickySentinel';
     readonly content: 'bui-HeaderContent';
+    readonly headerBottom: 'bui-HeaderBottom';
     readonly breadcrumbs: 'bui-HeaderBreadcrumbs';
+    readonly breadcrumbsSmall: 'bui-HeaderBreadcrumbsSmall';
+    readonly breadcrumbLink: 'bui-HeaderBreadcrumbLink';
+    readonly breadcrumbLinkSmall: 'bui-HeaderBreadcrumbLinkSmall';
+    readonly breadcrumbSeparator: 'bui-HeaderBreadcrumbSeparator';
+    readonly titleStack: 'bui-HeaderTitleStack';
+    readonly title: 'bui-HeaderTitle';
+    readonly titleSmall: 'bui-HeaderTitleSmall';
     readonly tabsWrapper: 'bui-HeaderTabsWrapper';
     readonly controls: 'bui-HeaderControls';
+    readonly tags: 'bui-HeaderTags';
+    readonly tag: 'bui-HeaderTag';
+    readonly description: 'bui-HeaderDescription';
+    readonly metaRow: 'bui-HeaderMetaRow';
+    readonly metaItem: 'bui-HeaderMetaItem';
   };
   readonly propDefs: {
     readonly title: {};
@@ -1712,7 +1790,11 @@ export const HeaderPageDefinition: {
     readonly tabs: {};
     readonly activeTabId: {};
     readonly breadcrumbs: {};
+    readonly description: {};
+    readonly tags: {};
+    readonly metadata: {};
     readonly className: {};
+    readonly sticky: {};
   };
 };
 
@@ -1734,6 +1816,14 @@ export interface HeaderTab {
   // (undocumented)
   label: string;
   matchStrategy?: TabMatchStrategy;
+}
+
+// @public
+export interface HeaderTag {
+  // (undocumented)
+  href?: string;
+  // (undocumented)
+  label: string;
 }
 
 // @public (undocumented)

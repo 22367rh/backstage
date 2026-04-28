@@ -66,15 +66,15 @@ export function createGithubBranchProtectionAction(options: {
     dismissStaleReviews?: boolean | undefined;
     bypassPullRequestAllowances?:
       | {
+          users?: string[] | undefined;
           apps?: string[] | undefined;
           teams?: string[] | undefined;
-          users?: string[] | undefined;
         }
       | undefined;
     restrictions?:
       | {
-          teams: string[];
           users: string[];
+          teams: string[];
           apps?: string[] | undefined;
         }
       | undefined;
@@ -265,9 +265,9 @@ export function createGithubRepoCreateAction(options: {
     branch?: string | undefined;
     bypassPullRequestAllowances?:
       | {
+          users?: string[] | undefined;
           apps?: string[] | undefined;
           teams?: string[] | undefined;
-          users?: string[] | undefined;
         }
       | undefined;
     collaborators?:
@@ -314,8 +314,8 @@ export function createGithubRepoCreateAction(options: {
     requireLastPushApproval?: boolean | undefined;
     restrictions?:
       | {
-          teams: string[];
           users: string[];
+          teams: string[];
           apps?: string[] | undefined;
         }
       | undefined;
@@ -352,16 +352,16 @@ export function createGithubRepoPushAction(options: {
     requiredStatusCheckContexts?: string[] | undefined;
     bypassPullRequestAllowances?:
       | {
+          users?: string[] | undefined;
           apps?: string[] | undefined;
           teams?: string[] | undefined;
-          users?: string[] | undefined;
         }
       | undefined;
     requiredApprovingReviewCount?: number | undefined;
     restrictions?:
       | {
-          teams: string[];
           users: string[];
+          teams: string[];
           apps?: string[] | undefined;
         }
       | undefined;
@@ -422,16 +422,16 @@ export function createPublishGithubAction(options: {
     access?: string | undefined;
     bypassPullRequestAllowances?:
       | {
+          users?: string[] | undefined;
           apps?: string[] | undefined;
           teams?: string[] | undefined;
-          users?: string[] | undefined;
         }
       | undefined;
     requiredApprovingReviewCount?: number | undefined;
     restrictions?:
       | {
-          teams: string[];
           users: string[];
+          teams: string[];
           apps?: string[] | undefined;
         }
       | undefined;
